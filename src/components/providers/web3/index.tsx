@@ -6,7 +6,7 @@ import {
 	useEffect,
 	ReactNode
 } from 'react';
-import { Web3State, createDefaultState } from './utils';
+import { Web3State, createDefaultState, loadContract } from './utils';
 import { ethers } from 'ethers';
 
 /* 在组件树中传递web3Api */
@@ -20,12 +20,16 @@ const Web3Provider: FunctionComponent<{ children: ReactNode }> = ({ children }) 
 	useEffect(() => {
 		async function initWeb3() {
 			try {
-				const provider = new ethers.BrowserProvider(window.ethereum);
+				// provider: 使用哪个API访问以太坊网络
+				const provider = new ethers.BrowserProvider(window.ethereum);	
+				const contract = await loadContract('NftMarket', provider);
+
+				/* 用户签名 */
 				await provider.getSigner();
 				setWeb3Api({
 					ethereum: window.ethereum, // 由于window.ethereum依赖于metamask插件，所以要在组件挂载后能才正确获取window.ethereum，仅使用createDefaultState是拿不到window.ethereum的
 					provider,
-					contract: null,
+					contract,
 					isLoading: true
 				});
 			} catch (error) {

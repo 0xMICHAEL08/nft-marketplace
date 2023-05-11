@@ -7,12 +7,20 @@ import { NftMeta } from '@_types/nft';
 import { useWeb3 } from '@/components/providers/web3';
 
 const Home: NextPage = () => {
-	const { provider } = useWeb3(); // 访问web3Api对象
-	console.log(provider);
+	const { provider, contract } = useWeb3(); // 访问web3Api对象
+
+	const getNftInfo = async () => {
+		console.log(await contract!.name());
+		console.log(await contract!.symbol());
+	};
+
+	if (contract) {
+		getNftInfo();
+	}
 
 	const getAccounts = async () => {
-		const accounts = await provider!.listAccounts();
-		console.log(accounts[0]);
+		const accounts = await provider!.listAccounts(); // 获取账户列表
+		console.log(accounts[0].address);
 	};
 
 	if (provider) {
