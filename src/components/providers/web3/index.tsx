@@ -21,7 +21,7 @@ const Web3Provider: FunctionComponent<{ children: ReactNode }> = ({ children }) 
 		async function initWeb3() {
 			try {
 				// provider: 使用哪个API访问以太坊网络
-				const provider = new ethers.BrowserProvider(window.ethereum);	
+				const provider = new ethers.BrowserProvider(window.ethereum);
 				const contract = await loadContract('NftMarket', provider);
 
 				/* 用户签名 */

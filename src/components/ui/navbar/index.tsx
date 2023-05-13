@@ -5,6 +5,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import ActiveLink from '../link';
+import { useAccount } from '@/components/hooks';
 
 const navigation = [
 	{ name: 'Markeyplace', href: '/', current: true },
@@ -16,6 +17,9 @@ function classNames(...classes: string[]) {
 }
 
 function Navbar() {
+	const { data, isValidating, error } = useAccount('Some Random Params');
+	console.log('data: ', data, 'isValidating: ', isValidating, 'error: ', error);
+
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
 			{({ open }) => (
@@ -25,19 +29,11 @@ function Navbar() {
 							<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 								{/* Mobile menu button*/}
 								<Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-									<span className="sr-only">
-										Open main menu
-									</span>
+									<span className="sr-only">Open main menu</span>
 									{open ? (
-										<XIcon
-											className="block h-6 w-6"
-											aria-hidden="true"
-										/>
+										<XIcon className="block h-6 w-6" aria-hidden="true" />
 									) : (
-										<MenuIcon
-											className="block h-6 w-6"
-											aria-hidden="true"
-										/>
+										<MenuIcon className="block h-6 w-6" aria-hidden="true" />
 									)}
 								</Disclosure.Button>
 							</div>
@@ -59,11 +55,7 @@ function Navbar() {
 											>
 												<a
 													className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-													aria-current={
-														item.current
-															? 'page'
-															: undefined
-													}
+													aria-current={item.current ? 'page' : undefined}
 												>
 													{item.name}
 												</a>
@@ -77,22 +69,15 @@ function Navbar() {
 									type="button"
 									className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 								>
-									<span className="sr-only">
-										View notifications
-									</span>
-									<BellIcon
-										className="h-6 w-6"
-										aria-hidden="true"
-									/>
+									<span className="sr-only">View notifications</span>
+									<BellIcon className="h-6 w-6" aria-hidden="true" />
 								</button>
 
 								{/* Profile dropdown */}
 								<Menu as="div" className="ml-3 relative z-10">
 									<div>
 										<Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-											<span className="sr-only">
-												Open user menu
-											</span>
+											<span className="sr-only">Open user menu</span>
 											<img
 												className="h-8 w-8 rounded-full"
 												src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -121,9 +106,7 @@ function Navbar() {
 													>
 														<a
 															className={classNames(
-																active
-																	? 'bg-gray-100'
-																	: '',
+																active ? 'bg-gray-100' : '',
 																'block px-4 py-2 text-sm text-gray-700'
 															)}
 														>
@@ -152,9 +135,7 @@ function Navbar() {
 											: 'text-gray-300 hover:bg-gray-700 hover:text-white',
 										'block px-3 py-2 rounded-md text-base font-medium'
 									)}
-									aria-current={
-										item.current ? 'page' : undefined
-									}
+									aria-current={item.current ? 'page' : undefined}
 								>
 									{item.name}
 								</Disclosure.Button>
