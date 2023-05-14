@@ -1,11 +1,11 @@
 import useSWR from 'swr';
+import { CryptoHookFactory } from '@_types/hooks';
 
 /* 函数工厂，用来初始化hooks */
 // hookFactory接收一个参数deps，返回一个接收params参数的匿名函数，最终返回useSWR hook的结果
-export const hookFactory = (deps: any) => (params: any) => {
+export const hookFactory: CryptoHookFactory = (deps) => (params) => {
 	// useSWR 用于数据获取和缓存(数据源标识符,可选配置对象)
 	const swrRes = useSWR('web3/useAccount', () => {
-		debugger;
 		// 用于配置缓存行为
 		console.log(deps);
 		console.log(params);
@@ -15,4 +15,4 @@ export const hookFactory = (deps: any) => (params: any) => {
 	return swrRes;
 };
 
-export const useAccount = hookFactory({ ethereum: null, provider: null });
+export const useAccount = hookFactory({ ethereum: undefined, provider: undefined });

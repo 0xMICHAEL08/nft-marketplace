@@ -17,8 +17,8 @@ function classNames(...classes: string[]) {
 }
 
 function Navbar() {
-	const { data, isValidating, error } = useAccount('Some Random Params');
-	console.log('data: ', data, 'isValidating: ', isValidating, 'error: ', error);
+	const { data } = useAccount('Some Random Params');
+	console.log(data);
 
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
